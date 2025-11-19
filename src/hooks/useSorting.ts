@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { bubbleSort, type SortStep } from '../algorithms/sorting';
+import { bubbleSort, mergeSort, quickSort, type SortStep } from '../algorithms/sorting';
 
 export type AlgorithmType = 'bubble' | 'merge' | 'quick';
 
@@ -45,8 +45,11 @@ export const useSorting = () => {
 
         if (algorithm === 'bubble') {
             generator = bubbleSort(array);
+        } else if (algorithm === 'merge') {
+            generator = mergeSort(array);
+        } else if (algorithm === 'quick') {
+            generator = quickSort(array);
         } else {
-            // Placeholder for other algos
             setIsSorting(false);
             sortingRef.current = false;
             return;

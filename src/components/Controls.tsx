@@ -34,8 +34,8 @@ export const Controls = ({
                     className="px-4 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 outline-none"
                 >
                     <option value="bubble">Bubble Sort</option>
-                    <option value="merge" disabled>Merge Sort (Coming Soon)</option>
-                    <option value="quick" disabled>Quick Sort (Coming Soon)</option>
+                    <option value="merge">Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
                 </select>
             </div>
 
