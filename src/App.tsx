@@ -39,6 +39,10 @@ function App() {
         speed={speed}
         setSpeed={setSpeed}
       />
+
+      <footer className="text-gray-500 text-sm mt-8">
+        <p>© {new Date().getFullYear()} Algo Visualiser. Built with React & Tailwind.</p>
+      </footer>
     </div>
   );
 }
