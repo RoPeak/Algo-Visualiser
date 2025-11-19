@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { bubbleSort, mergeSort, quickSort, type SortStep } from '../algorithms/sorting';
+import { bubbleSort, mergeSort, quickSort, insertionSort, selectionSort, type SortStep } from '../algorithms/sorting';
 
-export type AlgorithmType = 'bubble' | 'merge' | 'quick';
+export type AlgorithmType = 'bubble' | 'merge' | 'quick' | 'insertion' | 'selection';
 
 export const useSorting = () => {
     const [array, setArray] = useState<number[]>([]);
@@ -22,9 +22,18 @@ export const useSorting = () => {
         setIsPaused(false);
         pausedRef.current = false;
 
-        const newArray = Array.from({ length: arraySize }, () =>
-            Math.floor(Math.random() * 500) + 10
-        );
+        // Generate a linear distribution (1 to 100% height)
+        const newArray = Array.from({ length: arraySize }, (_, i) => {
+            // Scale values to be between 10 and 500 (height range)
+            return Math.floor(10 + (i / (arraySize - 1)) * 490);
+        });
+
+        // Fisher-Yates Shuffle
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+
         setArray(newArray);
         setComparison([]);
     }, [arraySize]);
@@ -49,6 +58,10 @@ export const useSorting = () => {
             generator = mergeSort(array);
         } else if (algorithm === 'quick') {
             generator = quickSort(array);
+        } else if (algorithm === 'insertion') {
+            generator = insertionSort(array);
+        } else if (algorithm === 'selection') {
+            generator = selectionSort(array);
         } else {
             setIsSorting(false);
             sortingRef.current = false;

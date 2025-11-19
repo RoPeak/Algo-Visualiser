@@ -110,3 +110,47 @@ export function* quickSort(array: number[]): Generator<SortStep> {
     yield* quickSortHelper(0, arr.length - 1);
     yield { array: [...arr], comparison: [] };
 }
+
+export function* insertionSort(array: number[]): Generator<SortStep> {
+    const arr = [...array];
+    const n = arr.length;
+
+    for (let i = 1; i < n; i++) {
+        let key = arr[i];
+        let j = i - 1;
+
+        yield { array: [...arr], comparison: [i, j] };
+
+        while (j >= 0 && arr[j] > key) {
+            yield { array: [...arr], comparison: [j, j + 1] };
+            arr[j + 1] = arr[j];
+            j = j - 1;
+            yield { array: [...arr], comparison: [j + 1] };
+        }
+        arr[j + 1] = key;
+        yield { array: [...arr], comparison: [j + 1] };
+    }
+
+    yield { array: [...arr], comparison: [] };
+}
+
+export function* selectionSort(array: number[]): Generator<SortStep> {
+    const arr = [...array];
+    const n = arr.length;
+
+    for (let i = 0; i < n - 1; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < n; j++) {
+            yield { array: [...arr], comparison: [minIdx, j] };
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        if (minIdx !== i) {
+            [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+            yield { array: [...arr], comparison: [i, minIdx] };
+        }
+    }
+
+    yield { array: [...arr], comparison: [] };
+}
