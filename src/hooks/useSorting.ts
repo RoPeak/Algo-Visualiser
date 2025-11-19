@@ -15,16 +15,17 @@ export const useSorting = () => {
     const pausedRef = useRef<boolean>(false); // Ref for pause state
 
     const resetArray = useCallback(() => {
-        if (sortingRef.current) return; // Prevent reset while sorting
+        // Allow reset if not sorting OR if paused
+        if (sortingRef.current && !pausedRef.current) return;
         const newArray = Array.from({ length: 50 }, () =>
             Math.floor(Math.random() * 500) + 10
         );
         setArray(newArray);
         setComparison([]);
-        setComparison([]);
         setIsSorting(false);
         setIsPaused(false);
         pausedRef.current = false;
+        sortingRef.current = false; // Ensure sorting ref is cleared
     }, []);
 
     const togglePause = useCallback(() => {

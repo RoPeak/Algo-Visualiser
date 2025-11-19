@@ -83,7 +83,6 @@ export const Controls = ({
                     max="100"
                     value={speed}
                     onChange={(e) => setSpeed(Number(e.target.value))}
-                    disabled={isSorting}
                     className="w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
                 />
             </div>
