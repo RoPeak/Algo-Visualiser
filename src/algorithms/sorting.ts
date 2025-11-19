@@ -154,3 +154,84 @@ export function* selectionSort(array: number[]): Generator<SortStep> {
 
     yield { array: [...arr], comparison: [] };
 }
+
+export function* heapSort(array: number[]): Generator<SortStep> {
+    const arr = [...array];
+    const n = arr.length;
+
+    function* heapify(n: number, i: number): Generator<SortStep> {
+        let largest = i;
+        const left = 2 * i + 1;
+        const right = 2 * i + 2;
+
+        if (left < n) {
+            yield { array: [...arr], comparison: [largest, left] };
+            if (arr[left] > arr[largest]) {
+                largest = left;
+            }
+        }
+
+        if (right < n) {
+            yield { array: [...arr], comparison: [largest, right] };
+            if (arr[right] > arr[largest]) {
+                largest = right;
+            }
+        }
+
+        if (largest !== i) {
+            [arr[i], arr[largest]] = [arr[largest], arr[i]];
+            yield { array: [...arr], comparison: [i, largest] };
+            yield* heapify(n, largest);
+        }
+    }
+
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+        yield* heapify(n, i);
+    }
+
+    for (let i = n - 1; i > 0; i--) {
+        [arr[0], arr[i]] = [arr[i], arr[0]];
+        yield { array: [...arr], comparison: [0, i] };
+        yield* heapify(i, 0);
+    }
+
+    yield { array: [...arr], comparison: [] };
+}
+
+export function* cocktailShakerSort(array: number[]): Generator<SortStep> {
+    const arr = [...array];
+    let start = 0;
+    let end = arr.length - 1;
+    let swapped = true;
+
+    while (swapped) {
+        swapped = false;
+
+        for (let i = start; i < end; i++) {
+            yield { array: [...arr], comparison: [i, i + 1] };
+            if (arr[i] > arr[i + 1]) {
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+                swapped = true;
+                yield { array: [...arr], comparison: [i, i + 1] };
+            }
+        }
+
+        if (!swapped) break;
+
+        swapped = false;
+        end--;
+
+        for (let i = end - 1; i >= start; i--) {
+            yield { array: [...arr], comparison: [i, i + 1] };
+            if (arr[i] > arr[i + 1]) {
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+                swapped = true;
+                yield { array: [...arr], comparison: [i, i + 1] };
+            }
+        }
+
+        start++;
+    }
+
+    yield { array: [...arr], comparison: [] };
+}

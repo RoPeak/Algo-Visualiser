@@ -42,6 +42,8 @@ export const Controls = ({
                     <option value="quick">Quick Sort</option>
                     <option value="insertion">Insertion Sort</option>
                     <option value="selection">Selection Sort</option>
+                    <option value="heap">Heap Sort</option>
+                    <option value="cocktail">Cocktail Shaker Sort</option>
                 </select>
             </div>
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { bubbleSort, mergeSort, quickSort, insertionSort, selectionSort, type SortStep } from '../algorithms/sorting';
+import { bubbleSort, mergeSort, quickSort, insertionSort, selectionSort, heapSort, cocktailShakerSort, type SortStep } from '../algorithms/sorting';
 
-export type AlgorithmType = 'bubble' | 'merge' | 'quick' | 'insertion' | 'selection';
+export type AlgorithmType = 'bubble' | 'merge' | 'quick' | 'insertion' | 'selection' | 'heap' | 'cocktail';
 
 export const useSorting = () => {
     const [array, setArray] = useState<number[]>([]);
@@ -62,6 +62,10 @@ export const useSorting = () => {
             generator = insertionSort(array);
         } else if (algorithm === 'selection') {
             generator = selectionSort(array);
+        } else if (algorithm === 'heap') {
+            generator = heapSort(array);
+        } else if (algorithm === 'cocktail') {
+            generator = cocktailShakerSort(array);
         } else {
             setIsSorting(false);
             sortingRef.current = false;
