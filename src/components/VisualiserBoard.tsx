@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 
-interface VisualizerBoardProps {
+interface VisualiserBoardProps {
     array: number[];
     comparison: number[];
 }
 
-export const VisualizerBoard = ({ array, comparison }: VisualizerBoardProps) => {
+export const VisualiserBoard = ({ array, comparison }: VisualiserBoardProps) => {
     return (
         <div className="flex items-end justify-center gap-1 h-[60vh] w-full max-w-5xl p-4 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm">
             {array.map((value, index) => {
